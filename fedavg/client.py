@@ -34,14 +34,14 @@ class Client(object):
         # criterion = torch.nn.BCEWithLogitsLoss()
         for e in range(self.conf["local_epochs"]):
             self.local_model.train()
-            for batch_id, batch in enumerate(self.train_loader):
+            for _, batch in enumerate(self.train_loader):
                 data, target = batch
                 if torch.cuda.is_available():
                     data = data.cuda()
                     target = target.cuda()
 
                 optimizer.zero_grad()
-                feature, output = self.local_model(data)
+                output = self.local_model(data)
 
                 loss = criterion(output, target)
                 loss.backward()
