@@ -18,7 +18,7 @@ import numpy as np
 from fedavg.server import Server
 from fedavg.client import Client
 
-from fedavg.models import CNN_Model,weights_init_normal, ReTrainModel,MLP
+from fedavg.models import resnet20
 from utils import get_data
 import copy
 
@@ -40,13 +40,7 @@ if __name__ == '__main__':
     # Save node models
     clients_models = {}
 
-    if conf['model_name'] == "mlp":
-        n_input = test_dataset.shape[1] - 1
-        model = MLP(n_input, 512, conf["num_classes"])
-    elif conf['model_name'] == 'cnn':
-        ## Target model for training
-        model = CNN_Model()
-    model.apply(weights_init_normal)
+    model = resnet20()
 
     if torch.cuda.is_available():
         model.cuda()
@@ -84,11 +78,6 @@ if __name__ == '__main__':
         # if acc >= max_acc:
         #     torch.save(server.global_model.state_dict(), os.path.join(conf["model_dir"], "model-epoch{}.pth".format(e)))
         #     max_acc = acc
-
-
-
-
-
 
     # Virtual Representation Generation ####################################################
     if conf['no-iid'] == 'fed_ccvr':
