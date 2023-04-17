@@ -94,7 +94,7 @@ class Resnet20(nn.Module):
         except:
             out = out
             
-        return out
+        return out, self.linear
       
     def model_size(self):
         tot_size = 0

@@ -41,7 +41,7 @@ class Client(object):
                     target = target.cuda()
 
                 optimizer.zero_grad()
-                output = self.local_model(data)
+                feature, output = self.local_model(data)
 
                 loss = criterion(output, target)
                 loss.backward()
@@ -63,7 +63,7 @@ class Client(object):
 
         criterion = torch.nn.CrossEntropyLoss()
         # criterion = torch.nn.BCEWithLogitsLoss()
-        for batch_id, batch in enumerate(self.val_loader):
+        for _, batch in enumerate(self.val_loader):
             data, target = batch
             dataset_size += data.size()[0]
 
