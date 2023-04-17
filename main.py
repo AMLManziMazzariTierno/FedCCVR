@@ -18,7 +18,7 @@ import numpy as np
 from fedavg.server import Server
 from fedavg.client import Client
 
-from fedavg.models import resnet20
+from fedavg.models import resnet20, CNN_Model, MLP
 from utils import get_data
 import copy
 
@@ -39,6 +39,16 @@ if __name__ == '__main__':
     clients = {}
     # Save node models
     clients_models = {}
+
+    if conf['model_name'] == "mlp":
+        n_input = test_dataset.shape[1] - 1
+        model = MLP(n_input, 512, conf["num_classes"])
+    elif conf['model_name'] == 'cnn':
+        ## Target model for training
+        model = CNN_Model()
+    elif conf['model_name'] == 'resnet20':
+        model = resnet20()
+    model.apply(weights_init_normal)
 
     model = resnet20()
 

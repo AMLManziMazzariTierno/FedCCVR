@@ -5,7 +5,7 @@ conf = {
 	#数据类型，tabular, image
 	"data_type" : "image",
 
-	#选择模型mlp,simple-cnn,vgg
+	#选择模型mlp,simple-cnn,vgg,resnet20
 	"model_name" : "mlp",
 
 	#处理方法:fed_ccvr
