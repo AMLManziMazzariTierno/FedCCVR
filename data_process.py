@@ -49,14 +49,21 @@ def save_img(loader, is_train, target_dir):
             num += 1
 
     #保存索引
-    index = pd.DataFrame({
-        conf["file_column"]:index_fname,
-        conf["label_column"]:index_label
-    })
-    index.to_csv(index_file, index=False)
+    # index = pd.DataFrame({
+    #     conf["file_column"]:index_fname,
+    #     conf["label_column"]:index_label
+    # })
+    # index.to_csv(index_file, index=False)
+    index = torchvision.datasets.ImageFolder(target_dir)
+    index_file = os.path.join(target_dir, f"{'train' if is_train else 'test'}.csv")
+    with open(index_file, 'w') as f:
+        f.write("file,label\n")
+        for i in range(len(index)):
+            path, label = index.imgs[i]
+            f.write(f"{path},{label}\n")
 
 
-def process_cifar10(data_dir, target_dir):
+def process_cifar100(data_dir, target_dir):
     """
     :param data_dir: 数据目录
     :param target_dir: 处理后目标目录
@@ -64,10 +71,10 @@ def process_cifar10(data_dir, target_dir):
     """
     transform = transforms.Compose(
         [transforms.Resize((32, 32)), transforms.ToTensor()])
-    trainset = torchvision.datasets.CIFAR10(root=data_dir, train=True,
+    trainset = torchvision.datasets.CIFAR100(root=data_dir, train=True,
                                             download=True, transform=transform)
 
-    testset = torchvision.datasets.CIFAR10(root=data_dir, train=False,
+    testset = torchvision.datasets.CIFAR100(root=data_dir, train=False,
                                            download=False, transform=transform)
 
     train_loader =  torch.utils.data.DataLoader(trainset, batch_size=64,shuffle=True)
@@ -76,11 +83,11 @@ def process_cifar10(data_dir, target_dir):
 
     save_img(train_loader, is_train=True, target_dir=target_dir)
     save_img(test_loader,is_train=False,target_dir=target_dir)
-    print("cifar10  process done !")
+    print("cifar100  process done !")
 
 
 if __name__ == "__main__":
-    process_cifar10('./data','./data/cifar10')
+    process_cifar100('./data','./data/cifar10')
 
 
 
