@@ -45,7 +45,7 @@ class MLP(nn.Module):
 
         x = self.out(feature)
 
-        return feature, x
+        return x, feature
 
 
 class CNN_Model(nn.Module):
