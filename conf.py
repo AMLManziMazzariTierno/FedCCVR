@@ -48,10 +48,10 @@ conf = {
 	"data_column": "file",
 
     #测试数据
-	"test_dataset": "./data/adult/adult_test.csv",
+	"test_dataset": "./data/cifar10/test/test.csv",
 
     #训练数据
-	"train_dataset" : "./data/adult/adult_train.csv",
+	"train_dataset" : "./data/cifar10/train/train.csv",
 
     #模型保存目录
 	"model_dir":"./save_model/",
