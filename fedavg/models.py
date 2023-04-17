@@ -89,7 +89,7 @@ class CNN_Model(nn.Module):
         x = self.cnn(input)
         x = x.view(x.shape[0], -1)
         x = self.fc(x)
-        return x, self.classifier(x)
+        return self.classifier(x), x
 
 
 

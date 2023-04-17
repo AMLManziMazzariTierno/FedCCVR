@@ -6,7 +6,7 @@ conf = {
 	"data_type" : "image",
 
 	#选择模型mlp,simple-cnn,vgg,resnet20
-	"model_name" : "mlp",
+	"model_name" : "cnn",
 
 	#处理方法:fed_ccvr
 	"no-iid": "",
