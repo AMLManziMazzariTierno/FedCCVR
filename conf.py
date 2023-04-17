@@ -3,7 +3,7 @@
 conf = {
 
 	#数据类型，tabular, image
-	"data_type" : "tabular",
+	"data_type" : "image",
 
 	#选择模型mlp,simple-cnn,vgg
 	"model_name" : "mlp",

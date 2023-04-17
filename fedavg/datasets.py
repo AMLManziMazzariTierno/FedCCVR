@@ -24,7 +24,7 @@ class MyTabularDataset(Dataset):
         label = self.label[index]
         data = self.data[index]
 
-        return torch.tensor(data).float(), label
+        return torch.from_numpy(data), label
 
 class MyImageDataset(Dataset):
     def __init__(self, dataset, file_col, label_col):
