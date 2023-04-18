@@ -187,7 +187,7 @@ class Resnet20(nn.Module):
         except:
             out = out
             
-        return [f1,f2,f3], out
+        return torch.FloatTensor([f1,f2,f3]), out
       
     def model_size(self):
         tot_size = 0

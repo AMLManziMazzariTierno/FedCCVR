@@ -43,7 +43,7 @@ class Client(object):
                 optimizer.zero_grad()
                 #print(data.shape)
                 feature, output = self.local_model(data)
-                print(feature.type)
+                #print(feature.type)
                 #print(feature.shape)
                 #print(output.shape)
 
