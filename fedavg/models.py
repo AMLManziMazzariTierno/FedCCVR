@@ -131,13 +131,12 @@ class BasicBlock(nn.Module):
 
 class Resnet20(nn.Module):
     """implementation of ResNet20 with GN layers"""
-    def __init__(self, lr, device, n_classes=100, input_shape = (28,28), dropout=0.5):
+    def __init__(self, lr, device, n_classes=100, input_shape = (28,28)):
     #def __init__(self, num_classes=100):
       super(Resnet20, self).__init__()
       block = BasicBlock
       num_blocks = [3,3,3]
       self.num_classes = n_classes
-      self.dropout = torch.nn.Dropout(dropout)
       self.device = device
       self.lr = lr
       self.in_planes = 16
@@ -176,9 +175,9 @@ class Resnet20(nn.Module):
         out = F.avg_pool2d(out, out.size()[3])
         out = out.view(out.size(0), -1)
 
-        feature = self.linear(out)
+        out = self.linear(out)
             
-        return feature, out
+        return F.log_softmax(out, dim=-1), out
       
     def model_size(self):
         tot_size = 0
