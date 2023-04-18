@@ -60,7 +60,7 @@ class Server(object):
 
         acc = 100.0 * (float(correct) / float(dataset_size))
         total_l = total_loss.cpu().detach().numpy() / dataset_size
-        print("roc_auc = {}".format(roc_auc_score(labels,predict_prob)))
+        # print("roc_auc = {}".format(roc_auc_score(labels,predict_prob)))
 
         return acc, total_l
 
