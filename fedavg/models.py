@@ -177,7 +177,7 @@ class Resnet20(nn.Module):
 
         out = self.linear(out)
             
-        return F.log_softmax(out, dim=-1), out
+        return out
       
     def model_size(self):
         tot_size = 0
