@@ -131,12 +131,13 @@ class BasicBlock(nn.Module):
 
 class Resnet20(nn.Module):
     """implementation of ResNet20 with GN layers"""
-    def __init__(self, lr, device, n_classes=100, input_shape = (28,28)):
+    def __init__(self, lr, device, n_classes=100, input_shape = (28,28), dropout=0.5):
     #def __init__(self, num_classes=100):
       super(Resnet20, self).__init__()
       block = BasicBlock
       num_blocks = [3,3,3]
       self.num_classes = n_classes
+      self.dropout = torch.nn.Dropout(dropout)
       self.device = device
       self.lr = lr
       self.in_planes = 16
@@ -148,8 +149,6 @@ class Resnet20(nn.Module):
       self.layer2 = self._make_layer(block, 32, num_blocks[1], stride=2)
       self.layer3 = self._make_layer(block, 64, num_blocks[2], stride=2)
       self.linear = nn.Linear(64, n_classes)
-
-      #self.features = nn.Linear(64, 64)
 
       self.apply(_weights_init)
       #self.weights = self.apply(_weights_init)
@@ -170,24 +169,15 @@ class Resnet20(nn.Module):
         out = self.gn1(out)
         out = self.relu(out)
         
-        out = self.layer1(out)
-        f1 = out.clone()
-
-        out = self.layer2(out)
-        f2 = out.clone()
-
-        feature = self.layer3(out)
-        f3 = out.clone()
+        feature = self.layer1(out)
+        feature = self.layer2(feature)
+        feature = self.layer3(feature)
 
         out = F.avg_pool2d(feature, feature.size()[3])
         out = out.view(out.size(0), -1)
-
-        try:
-            out = self.linear(out)
-        except:
-            out = out
+        out = self.linear(out)
             
-        return torch.FloatTensor([f1,f2,f3]), out
+        return feature, out
       
     def model_size(self):
         tot_size = 0
