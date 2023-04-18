@@ -174,7 +174,7 @@ class Resnet20(nn.Module):
         out = self.layer2(out)
         feature = self.layer3(out)
 
-        out = nn.avg_pool2d(feature, feature.size()[3])
+        out = F.avg_pool2d(feature, feature.size()[3])
         out = out.view(out.size(0), -1)
 
         try:
