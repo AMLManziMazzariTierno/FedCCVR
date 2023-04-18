@@ -184,7 +184,7 @@ class Resnet20(nn.Module):
 
         out2 = self.features(out)
             
-        return out1, out2
+        return out2, out1
       
     def model_size(self):
         tot_size = 0
