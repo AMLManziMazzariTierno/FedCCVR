@@ -6,13 +6,13 @@ conf = {
 	"data_type" : "image",
 
 	#选择模型mlp,simple-cnn,vgg,resnet20
-	"model_name" : "cnn",
+	"model_name" : "resnet20",
 
 	#处理方法:fed_ccvr
 	"no-iid": "",
 
 	#全局epoch
-	"global_epochs" : 1000,
+	"global_epochs" : 100,
 
 	#本地epoch
 	"local_epochs" : 3,

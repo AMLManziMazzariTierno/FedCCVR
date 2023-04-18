@@ -109,8 +109,8 @@ class BasicBlock(nn.Module):
         self.gn1 = nn.GroupNorm(NUM_GROUP, planes)
         self.conv2 = nn.Conv2d(planes, planes, kernel_size=3, stride=1, padding=1, bias=False)
         self.gn2 = nn.GroupNorm(NUM_GROUP, planes)
-
         self.shortcut = nn.Sequential()
+
         if stride != 1 or in_planes != planes:
             self.shortcut = nn.Sequential(
                   nn.Conv2d(in_planes, self.expansion * planes, kernel_size=1, stride=stride, bias=False),
@@ -149,6 +149,8 @@ class Resnet20(nn.Module):
       self.layer3 = self._make_layer(block, 64, num_blocks[2], stride=2)
       self.linear = nn.Linear(64, n_classes)
 
+      self.features = nn.Linear(64, 64)
+
       self.apply(_weights_init)
       #self.weights = self.apply(_weights_init)
       self.size = self.model_size()
@@ -172,14 +174,17 @@ class Resnet20(nn.Module):
         out = self.layer2(out)
         feature = self.layer3(out)
 
-        out = torch.nn.functional.avg_pool2d(feature, feature.size()[3])
+        out = nn.avg_pool2d(feature, feature.size()[3])
         out = out.view(out.size(0), -1)
+
         try:
-            out = self.linear(out)
+            out1 = self.linear(out)
         except:
             out = out
+
+        out2 = self.features(out)
             
-        return out, feature
+        return out1, out2
       
     def model_size(self):
         tot_size = 0

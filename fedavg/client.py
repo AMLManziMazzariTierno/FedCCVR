@@ -42,6 +42,8 @@ class Client(object):
 
                 optimizer.zero_grad()
                 feature, output = self.local_model(data)
+                print(feature.shape)
+                print(output.shape)
 
                 loss = criterion(output, target)
                 loss.backward()

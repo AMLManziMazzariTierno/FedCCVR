@@ -48,7 +48,7 @@ if __name__ == '__main__':
         model = CNN_Model()
     elif conf['model_name'] == 'resnet20':
         model = resnet20()
-        
+
     model.apply(weights_init_normal)
 
     if torch.cuda.is_available():
@@ -71,6 +71,7 @@ if __name__ == '__main__':
 
     # Federated learning
     for e in range(conf["global_epochs"]):
+        print("Epoch %d of %d" % (e,conf["global_epochs"]))
 
         for key in clients.keys():
             print('training client {}...'.format(key))
