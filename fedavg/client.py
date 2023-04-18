@@ -41,9 +41,11 @@ class Client(object):
                     target = target.cuda()
 
                 optimizer.zero_grad()
+                #print(data.shape)
                 feature, output = self.local_model(data)
-                print(feature.shape)
-                print(output.shape)
+                print(feature.type)
+                #print(feature.shape)
+                #print(output.shape)
 
                 loss = criterion(output, target)
                 loss.backward()

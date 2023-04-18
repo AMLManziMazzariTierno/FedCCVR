@@ -187,7 +187,7 @@ class Resnet20(nn.Module):
         except:
             out = out
             
-        return out, [f1,f2,f3]
+        return [f1,f2,f3], out
       
     def model_size(self):
         tot_size = 0
