@@ -149,7 +149,7 @@ class Resnet20(nn.Module):
       self.layer3 = self._make_layer(block, 64, num_blocks[2], stride=2)
       self.linear = nn.Linear(64, n_classes)
 
-      self.features = nn.Linear(64, 64)
+      #self.features = nn.Linear(64, 64)
 
       self.apply(_weights_init)
       #self.weights = self.apply(_weights_init)
@@ -171,20 +171,23 @@ class Resnet20(nn.Module):
         out = self.relu(out)
         
         out = self.layer1(out)
+        f1 = out.clone()
+
         out = self.layer2(out)
+        f2 = out.clone()
+
         feature = self.layer3(out)
+        f3 = out.clone()
 
         out = F.avg_pool2d(feature, feature.size()[3])
         out = out.view(out.size(0), -1)
 
         try:
-            out1 = self.linear(out)
+            out = self.linear(out)
         except:
             out = out
-
-        out2 = self.features(out)
             
-        return out2, out1
+        return out, [f1,f2,f3]
       
     def model_size(self):
         tot_size = 0
