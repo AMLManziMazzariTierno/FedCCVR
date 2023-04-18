@@ -48,9 +48,8 @@ if __name__ == '__main__':
         model = CNN_Model()
     elif conf['model_name'] == 'resnet20':
         model = resnet20()
+        
     model.apply(weights_init_normal)
-
-    model = resnet20()
 
     if torch.cuda.is_available():
         model.cuda()
