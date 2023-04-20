@@ -83,7 +83,7 @@ class CNN_Model(nn.Module):
         )
 
         #Layer 7  classifier layer
-        self.classifier = nn.Linear(256,10)
+        self.classifier = nn.Linear(256,100)
 
     def forward(self, input):
         x = self.cnn(input)
@@ -173,11 +173,12 @@ class Resnet20(nn.Module):
         out = self.layer3(out)
 
         out = F.avg_pool2d(out, out.size()[3])
-        out = out.view(out.size(0), -1)
 
+        feature = out
+        out = out.view(out.size(0), -1)
         out = self.linear(out)
             
-        return out
+        return out, feature
       
     def model_size(self):
         tot_size = 0
@@ -191,7 +192,7 @@ class Resnet20(nn.Module):
 def resnet20(image_channels=3):
     return Resnet20(BasicBlock, [3, 3, 3], image_channels)
 
-    
+
 
 class ReTrainModel(nn.Module):
 
