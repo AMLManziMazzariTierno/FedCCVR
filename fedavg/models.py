@@ -191,6 +191,8 @@ class Resnet20(nn.Module):
 def resnet20(image_channels=3):
     return Resnet20(BasicBlock, [3, 3, 3], image_channels)
 
+    
+
 class ReTrainModel(nn.Module):
 
     def __init__(self):

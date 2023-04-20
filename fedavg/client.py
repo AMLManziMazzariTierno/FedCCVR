@@ -5,12 +5,6 @@ from fedavg.datasets import get_dataset
 class Client(object):
 
     def __init__(self, conf, model, train_df, val_df):
-        """
-        :param conf: 配置文件
-        :param model: 全局模型
-        :param train_dataset: 训练数据集
-        :param val_dataset: 验证数据集
-        """
 
         self.conf = conf
 
@@ -41,11 +35,7 @@ class Client(object):
                     target = target.cuda()
 
                 optimizer.zero_grad()
-                #print(data.shape)
-                feature, output = self.local_model(data)
-                #print(feature.type)
-                #print(feature.shape)
-                #print(output.shape)
+                _, output = self.local_model(data)
 
                 loss = criterion(output, target)
                 loss.backward()
@@ -88,22 +78,15 @@ class Client(object):
         return acc, total_l
 
     def _cal_mean_cov(self,features):
-        """
-        :param features: 输出特征，(batch_size, 256)
-        :return:
-        """
+
         features = np.array(features)
         mean = np.mean(features, axis=0)
 
-        # 注意这里设置bias=1，相当于公式(2)除以N而不是N-1，因为当N=1时相当于除以0，出现Nan
         cov = np.cov(features.T, bias=1)
         return mean,cov
 
     def cal_distributions(self, model):
-        """
-        :param feature:
-        :return:
-        """
+
         for name, param in model.state_dict().items():
             self.local_model.state_dict()[name].copy_(param.clone())
 
@@ -128,12 +111,12 @@ class Client(object):
                         data = data.cuda()
 
                     feature, _ = self.local_model(data)
+                    #print(feature.shape)
                     features.extend(feature.tolist())
 
                 f_mean, f_cov = self._cal_mean_cov(features)
 
             else:
-                ##TODO: 根据最后一层隐藏层输出决定均值和方差的维度
                 f_mean = np.zeros((256,))
                 f_cov = np.zeros((256,256))
 
