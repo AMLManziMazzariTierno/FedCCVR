@@ -53,21 +53,21 @@ def label_skew(data,label,K,n_parties,beta,min_require_size = 10):
 
 def get_data():
 
-    ###训练数据
+    ### Training data
     train_data = pd.read_csv(conf["train_dataset"])
 
     train_data,partition_all = label_skew(train_data,conf["label_column"],conf["num_classes"],conf["num_parties"],conf["beta"])
-    print("各节点数据划分情况")
+    print("Data distribution for each node:")
     print(partition_all)
     
     train_datasets = {}
     val_datasets = {}
-    ##各节点数据量
+    ## Number of samples for each node
     number_samples = {}
 
-    ##读取数据集,训练数据拆分成训练集和测试集
+    ## Load datasets, split training data into training and validation sets
     for key in train_data.keys():
-        ##打乱顺序
+        ## Shuffle the data
         train_dataset = shuffle(train_data[key])
 
         val_dataset = train_dataset[:int(len(train_dataset) * conf["split_ratio"])]
@@ -77,10 +77,10 @@ def get_data():
 
         number_samples[key] = len(train_dataset)
 
-    ##测试集,在Server端测试模型效果
+    ## Test set, used to evaluate the model on the Server
     test_dataset = pd.read_csv(conf["test_dataset"])
     test_dataset = test_dataset
-    print("数据加载完成!")
+    print("Data loading complete!")
 
     return train_datasets, val_datasets, test_dataset
 
