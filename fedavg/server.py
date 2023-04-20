@@ -48,7 +48,7 @@ class Server(object):
                 data = data.cuda()
                 target = target.cuda()
 
-            _, output = self.global_model(data)
+            output, feature = self.global_model(data)
 
             total_loss += criterion(output, target) # sum up batch loss
             pred = output.data.max(1)[1]  # get the index of the max log-probability
