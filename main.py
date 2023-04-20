@@ -47,7 +47,7 @@ if __name__ == '__main__':
         ## Target model for training
         model = CNN_Model()
     elif conf['model_name'] == 'resnet20':
-        model = resnet20()
+        model = resnet20(100)
 
     model.apply(weights_init_normal)
 

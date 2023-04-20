@@ -131,14 +131,12 @@ class BasicBlock(nn.Module):
 
 class Resnet20(nn.Module):
     """implementation of ResNet20 with GN layers"""
-    def __init__(self, lr, device, n_classes=100, input_shape = (28,28)):
+    def __init__(self, n_classes):
     #def __init__(self, num_classes=100):
       super(Resnet20, self).__init__()
       block = BasicBlock
       num_blocks = [3,3,3]
       self.num_classes = n_classes
-      self.device = device
-      self.lr = lr
       self.in_planes = 16
       self.conv1 = nn.Conv2d(3, 16, kernel_size=3, stride=1, padding=1, bias=False)
       self.gn1 = nn.GroupNorm(NUM_GROUP, 16)
@@ -189,8 +187,8 @@ class Resnet20(nn.Module):
     def summary(self):
         return "summary"
 
-def resnet20(image_channels=3):
-    return Resnet20(BasicBlock, [3, 3, 3], image_channels)
+def resnet20(n_classes=100):
+    return Resnet20(n_classes)
 
 
 
