@@ -35,7 +35,7 @@ class Client(object):
                     target = target.cuda()
 
                 optimizer.zero_grad()
-                _, output = self.local_model(data)
+                output, feature = self.local_model(data)
 
                 loss = criterion(output, target)
                 loss.backward()
@@ -65,7 +65,7 @@ class Client(object):
                 data = data.cuda()
                 target = target.cuda()
 
-            _, output = self.local_model(data)
+            output,feature = self.local_model(data)
 
             total_loss += criterion(output, target)    # sum up batch loss
             pred = output.data.max(1)[1]  # get the index of the max log-probability
@@ -110,7 +110,7 @@ class Client(object):
                     if torch.cuda.is_available():
                         data = data.cuda()
 
-                    feature, _ = self.local_model(data)
+                    output, feature = self.local_model(data)
                     #print(feature.shape)
                     features.extend(feature.tolist())
 
