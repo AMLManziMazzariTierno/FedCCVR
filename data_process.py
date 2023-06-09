@@ -8,12 +8,12 @@ from conf import conf
 
 def save_img(loader, is_train, target_dir):
     """
-    :param loader: 数据加载器
-    :param is_train: 是否训练数据
-    :param target_dir: 保存数据目录
+    :param loader: Data loader
+    :param is_train: Whether it is the training data
+    :param target_dir: Directory to save the data
     :return:
     """
-    #构造数据目录和索引文件保存地址
+    # Construct the directory for saving data and the index file location
     if is_train:
         target_dir = os.path.join(target_dir, 'train')
         index_file = os.path.join(target_dir,'train.csv')
@@ -24,31 +24,31 @@ def save_img(loader, is_train, target_dir):
     os.makedirs(target_dir, exist_ok=True)
 
     num = 0
-    #保存图片文件名
+    # Save the filenames of the images
     index_fname  = []
-    #保存标签
+    # Save the labels
     index_label = []
 
     for _, batch_data in enumerate(loader):
         data, label = batch_data
         for d,l in zip(data, label):
 
-            #构造图片保存目录
+            # Construct the directory to save the image
             result_dir = os.path.join(target_dir, str(l.item()))
             if not os.path.exists(result_dir):
                 os.makedirs(result_dir,exist_ok=True)
 
-            #构造图片保存文件
+            # Construct the filename to save the image
             file = os.path.join(result_dir, "{0}-{1}.png".format(l.item(), num))
 
             index_fname.append(file)
             index_label.append(l.item())
 
-            #保存图片
+            # Save the image
             save_image(d.data, file)
             num += 1
 
-    #保存索引
+    # Save the index
     # index = pd.DataFrame({
     #     conf["file_column"]:index_fname,
     #     conf["label_column"]:index_label
@@ -65,8 +65,8 @@ def save_img(loader, is_train, target_dir):
 
 def process_cifar100(data_dir, target_dir):
     """
-    :param data_dir: 数据目录
-    :param target_dir: 处理后目标目录
+    :param data_dir: Data directory
+    :param target_dir: Target directory for processed data
     :return:
     """
     transform = transforms.Compose(

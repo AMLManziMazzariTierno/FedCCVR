@@ -21,9 +21,12 @@ from fedavg.client import Client
 from fedavg.models import resnet20, CNN_Model, MLP, weights_init_normal
 from utils import get_data
 import copy
+import wandb
 
 
 if __name__ == '__main__':
+
+    wandb.init(project="", entity="samaml", group="fedccvr", name="fedccvr")
 
     train_datasets, val_datasets, test_dataset = get_data()
 
@@ -83,6 +86,9 @@ if __name__ == '__main__':
         # Test the global model
         acc, loss = server.model_eval()
         print("Epoch %d, global_acc: %f, global_loss: %f\n" % (e, acc, loss))
+
+        # Save test accuracy to wandb
+        wandb.log({"Test Accuracy": acc})
 
         # # Save the best model
         # if acc >= max_acc:
@@ -156,6 +162,7 @@ if __name__ == '__main__':
             server.global_model.state_dict()[name].copy_(param.clone())
 
         acc, loss = server.model_eval()
+        wandb.log({"Final Test Accuracy": acc})
         print("After retraining global_acc: %f, global_loss: %f\n" % (acc, loss))
 
 

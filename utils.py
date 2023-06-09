@@ -4,23 +4,24 @@ from conf import conf
 from sklearn.utils import shuffle
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
+import wandb
 
 def label_skew(data,label,K,n_parties,beta,min_require_size = 10):
     """
-    :param data: 数据dataframe
-    :param label: 标签列名
-    :param K: 标签数
-    :param n_parties:参与方数
-    :param beta: 狄利克雷参数
-    :param min_require_size: 点最小数据量，如果低于这个数字会重新划分，保证每个节点数据量不会过少
-    :return: 根据狄利克雷分布划分数据到各个参与方
+:param data: Data dataframe
+:param label: Label column name
+:param K: Number of labels
+:param n_parties: Number of parties
+:param beta: Dirichlet parameter
+:param min_require_size: Minimum data size per point, if below this number, the data will be redistributed to ensure each node has enough data
+:return: Split the data to different parties based on the Dirichlet distribution
     """
     y_train = data[label]
 
     min_size = 0
     partition_all = []
     front = np.array([0])
-    N = y_train.shape[0]  # N样本总数
+    N = y_train.shape[0]  # Total number of samples
     # return train_datasets, test_dataset, n_input, number_samples
     split_data = {}
 
@@ -37,13 +38,13 @@ def label_skew(data,label,K,n_parties,beta,min_require_size = 10):
             
             back = np.array([idx_k.shape[0]])
             partition =np.concatenate((front,proportions,back),axis=0)
-            partition = np.diff(partition)#根据切分点求差值来计算各标签划分数据量
+            partition = np.diff(partition) # Calculate the data distribution for each label based on the splitting points
             partition_all.append(partition)
             idx_batch = [idx_j + idx.tolist() for idx_j, idx in zip(idx_batch, np.split(idx_k, proportions))]
 
             min_size = min([len(idx_j) for idx_j in idx_batch])
 
-    # 根据各节点数据index划分数据
+    # Split the data based on the indices for each node
     for j in range(n_parties):
         np.random.shuffle(idx_batch[j])
         split_data[j] = data.iloc[idx_batch[j], :]
@@ -138,3 +139,54 @@ class FedTSNE:
         ax[2].axis('equal')
         fig.savefig(save_path)
         plt.close(fig)
+
+def init_wandb(run_id=None, config=conf):
+    group_name = "fedmd"
+
+    configuration = config
+    agents = ""
+    for agent in configuration["models"]:
+        agents += agent["model_type"][0]
+    job_name = f"M{configuration['N_agents']}_N{configuration['N_rounds']}_S{config['N_subset']}_A{agents}"
+
+    run = wandb.init(
+                id = run_id,
+                # Set entity to specify your username or team name
+                entity="samaml",
+                # Set the project where this run will be logged
+                project='fl_md',
+                group=group_name,
+                # Track hyperparameters and run metadata
+                config=configuration,
+                resume="allow")
+
+    if os.environ["WANDB_MODE"] != "offline" and not wandb.run.resumed:
+        random_number = wandb.run.name.split('-')[-1]
+        wandb.run.name = job_name + '-' + random_number
+        wandb.run.save()
+        resumed = False
+    if wandb.run.resumed:
+        resumed = True
+
+    return run, job_name, resumed
+
+
+def load_checkpoint(path, model, restore_path = None):
+    loaded = False
+    if wandb.run.resumed or restore_path is not None:
+        try:
+            weights = wandb.restore(path, run_path=restore_path)
+            model.load_state_dict(torch.load(weights.name))
+            print(f"===== SUCCESFULLY LOADED {path} FROM CHECKPOINT =====")
+            loaded = True
+        except ValueError:
+            print(f"===== CHECKPOINT FOR {path} DOES NOT EXIST =====")            
+        except RuntimeError:
+            print(f"===== CHECKPOINT FOR {path} IS CORRUPTED =====")
+            print("Deleting...")
+            files = wandb.run.files()
+            for file in files:
+                if file.name == path:
+                    file.delete()
+            print("Deleted. Sorry for the inconveniences")
+    return loaded
