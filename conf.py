@@ -1,5 +1,5 @@
 
-##配置文件
+# Fed-CCVR configuration file
 conf = {
 
 	# Data type: tabular, image
@@ -9,7 +9,7 @@ conf = {
 	"model_name" : "resnet20",
 
 	# Processing method: fed_ccvr
-	"no-iid": "",
+	"no-iid": "fed_ccvr",
 
 	# Global epochs
 	"global_epochs" : 1000,
@@ -33,7 +33,7 @@ conf = {
 	"num_classes": 100, # era a 2
 
 	# Number of parties/nodes
-	"num_parties": 10, # era a 5
+	"num_parties": 5,
 
     # Model aggregation weight initialization
 	"is_init_avg": True,
