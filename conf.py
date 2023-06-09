@@ -2,66 +2,66 @@
 ##配置文件
 conf = {
 
-	#数据类型，tabular, image
+	# Data type: tabular, image
 	"data_type" : "image",
 
-	#选择模型mlp,simple-cnn,vgg,resnet20
+	# Model selection: mlp, simple-cnn, vgg, resnet20
 	"model_name" : "resnet20",
 
-	#处理方法:fed_ccvr
+	# Processing method: fed_ccvr
 	"no-iid": "",
 
-	#全局epoch
-	"global_epochs" : 100,
+	# Global epochs
+	"global_epochs" : 1000,
 
-	#本地epoch
-	"local_epochs" : 3,
+	# Local epochs
+	"local_epochs" : 1,
 
-	#狄利克雷参数
-	"beta" : 0.5,
+	# Dirichlet parameter
+	"beta" : 1000,
 
-	"batch_size" : 64,
+	"batch_size" : 128,
 
-	"weight_decay":1e-5,
+	"weight_decay": 0.0001,
 
-    #学习速率
-	"lr" : 0.001,
+    # Learning rate
+	"lr" : 0.1,
 
 	"momentum" : 0.9,
 
-	#分类
-	"num_classes": 2,
+	# Number of classes
+	"num_classes": 100, # era a 2
 
-	#节点数
-	"num_parties":10,
+	# Number of parties/nodes
+	"num_parties": 10, # era a 5
 
-    #模型聚合权值
+    # Model aggregation weight initialization
 	"is_init_avg": True,
 
-    #本地验证集划分比例
+    # Local validation set split ratio
 	"split_ratio": 0.3,
 
-    #标签列名
+    # Label column name
 	"label_column": "label",
 
-	#数据列名
+	# Data column name
 	"data_column": "file",
 
-    #测试数据
+    # Test data
 	"test_dataset": "./data/cifar10/test/test.csv",
 
-    #训练数据
+    # Training data
 	"train_dataset" : "./data/cifar10/train/train.csv",
 
-    #模型保存目录
+    # Model save directory
 	"model_dir":"./save_model/",
 
-    #模型文件名
+    # Model filename
 	"model_file":"model.pth",
 
 	"retrain":{
 		"epoch": 10,
-		"lr": 0.001,
+		"lr": 0.0001,
 		"num_vr":2000
 	}
 }
