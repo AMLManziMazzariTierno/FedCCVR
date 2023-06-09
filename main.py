@@ -22,6 +22,7 @@ from fedavg.models import resnet20, CNN_Model, MLP, weights_init_normal
 from utils import get_data
 import copy
 import wandb
+from fedavg.models import ReTrainModel
 
 
 if __name__ == '__main__':

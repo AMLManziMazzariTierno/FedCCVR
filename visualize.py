@@ -5,7 +5,7 @@ from conf import conf
 from fedavg.server import Server
 from fedavg.client import Client
 from fedavg.models import CNN_Model, resnet20
-from utils import get_cifar10, FedTSNE
+from utils import get_data, FedTSNE
 
 
 if __name__ == '__main__':
@@ -17,7 +17,7 @@ if __name__ == '__main__':
     parser.add_argument('--save_path', default='./visualize/tsne.png', type=str, help='path to save tsne result')
     args = parser.parse_args()
 
-    train_datasets, val_datasets, test_dataset = get_cifar10()
+    train_datasets, val_datasets, test_dataset = get_data()
 
     # Define the model
     model = resnet20(100)
