@@ -15,7 +15,7 @@ conf = {
 	"global_epochs" : 1000,
 
 	# Local epochs
-	"local_epochs" : 1,
+	"local_epochs" : 3,
 
 	# Dirichlet parameter
 	"beta" : 1000,
