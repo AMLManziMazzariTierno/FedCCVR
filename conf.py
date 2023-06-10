@@ -12,7 +12,7 @@ conf = {
 	"no-iid": "fed_ccvr",
 
 	# Global epochs
-	"global_epochs" : 10,
+	"global_epochs" : 2,
 
 	# Local epochs
 	"local_epochs" : 1,
