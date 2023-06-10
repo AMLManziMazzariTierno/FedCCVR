@@ -18,7 +18,7 @@ conf = {
 	"local_epochs" : 3,
 
 	# Dirichlet parameter
-	"beta" : 0.5,
+	"beta" : 0,
 
 	"batch_size" : 128,
 
