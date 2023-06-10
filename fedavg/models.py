@@ -132,7 +132,6 @@ class BasicBlock(nn.Module):
 class Resnet20(nn.Module):
     """implementation of ResNet20 with GN layers"""
     def __init__(self, n_classes):
-    #def __init__(self, num_classes=100):
       super(Resnet20, self).__init__()
       block = BasicBlock
       num_blocks = [3,3,3]
@@ -147,7 +146,7 @@ class Resnet20(nn.Module):
       self.layer3 = self._make_layer(block, 64, num_blocks[2], stride=2)
       self.linear = nn.Linear(64, n_classes)
 
-      self.apply(_weights_init)
+      #self.apply(_weights_init)
       #self.weights = self.apply(_weights_init)
       self.size = self.model_size()
       print(f"size definito {self.size}")
