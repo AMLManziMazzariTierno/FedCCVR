@@ -18,7 +18,7 @@ import numpy as np
 from fedavg.server import Server
 from fedavg.client import Client
 
-from fedavg.models import resnet20, CNN_Model, MLP, weights_init_normal
+from fedavg.models import resnet20, CNN_Model, MLP
 from utils import get_data
 import copy
 import wandb
