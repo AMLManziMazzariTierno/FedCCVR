@@ -204,3 +204,17 @@ class ReTrainModel(nn.Module):
 
         return self.classifier(input)
 
+def weights_init_normal(m):
+    classname = m.__class__.__name__
+    if classname.find('Conv') != -1:
+        torch.nn.init_.normal(m.weight, 0.0, 0.02)
+    elif classname.find('BatchNorm') != -1:
+        torch.nn.init_.normal(m.weight, 1.0, 0.02)
+        torch.nn.init_.constant(m.bias, 0.0)
+    elif classname.find('Linear') != -1:
+        torch.nn.init_.normal(m.weight, 0.0, 0.01)
+        torch.nn.init_.constant(m.bias, 0.0)
+
+
+
+
