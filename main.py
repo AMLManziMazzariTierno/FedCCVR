@@ -53,11 +53,8 @@ if __name__ == '__main__':
     elif conf['model_name'] == 'resnet20':
         model = resnet20(100)
 
-    model.apply(weights_init_normal)
-
     if torch.cuda.is_available():
         model.cuda()
-
 
     server = Server(conf, model, test_dataset)
 
