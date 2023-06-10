@@ -6,13 +6,13 @@ conf = {
 	"data_type" : "image",
 
 	# Model selection: mlp, cnn, resnet20
-	"model_name" : "cnn",
+	"model_name" : "resnet20",
 
 	# Processing method: fed_ccvr
 	"no-iid": "fed_ccvr",
 
 	# Global epochs
-	"global_epochs" : 2,
+	"global_epochs" : 500,
 
 	# Local epochs
 	"local_epochs" : 1,
