@@ -6,7 +6,7 @@ conf = {
 	"data_type" : "image",
 
 	# Model selection: mlp, simple-cnn, vgg, resnet20
-	"model_name" : "resnet20",
+	"model_name" : "simple-cnn",
 
 	# Processing method: fed_ccvr
 	"no-iid": "fed_ccvr",
