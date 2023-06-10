@@ -12,10 +12,10 @@ conf = {
 	"no-iid": "fed_ccvr",
 
 	# Global epochs
-	"global_epochs" : 1000,
+	"global_epochs" : 10,
 
 	# Local epochs
-	"local_epochs" : 3,
+	"local_epochs" : 1,
 
 	# Dirichlet parameter
 	"beta" : 0,
