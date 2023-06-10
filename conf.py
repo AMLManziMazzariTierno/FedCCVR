@@ -5,8 +5,8 @@ conf = {
 	# Data type: tabular, image
 	"data_type" : "image",
 
-	# Model selection: mlp, simple-cnn, vgg, resnet20
-	"model_name" : "simple-cnn",
+	# Model selection: mlp, cnn, resnet20
+	"model_name" : "cnn",
 
 	# Processing method: fed_ccvr
 	"no-iid": "fed_ccvr",
