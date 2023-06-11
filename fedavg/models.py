@@ -199,11 +199,11 @@ class ReTrainModel(nn.Module):
         super(ReTrainModel, self).__init__()
 
         #Layer 7  classifier layer
-        self.classifier = nn.Linear(64,100)
+        self.fc = nn.Linear(64,100)
 
     def forward(self, input):
 
-        return self.classifier(input)
+        return self.fc(input)
 
 def weights_init_normal(m):
     classname = m.__class__.__name__

@@ -157,9 +157,7 @@ if __name__ == '__main__':
 
         # Update the global model using the retrained layers
         for name, param in retrain_model.state_dict().items():
-            if "classifier" in name: # Only update the classifier layer
-                #server.global_model.state_dict()[name].copy_(param.clone())
-                model.state_dict()[name].copy_(param.clone())
+            server.global_model.state_dict()[name].copy_(param.clone())
 
         acc, loss = server.model_eval()
         wandb.log({"Final Test Accuracy": acc})
