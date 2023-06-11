@@ -199,7 +199,7 @@ class ReTrainModel(nn.Module):
         super(ReTrainModel, self).__init__()
 
         #Layer 7  classifier layer
-        self.classifier = nn.Linear(256,100)
+        self.classifier = nn.Linear(64,100)
 
     def forward(self, input):
 
