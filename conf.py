@@ -12,7 +12,7 @@ conf = {
 	"no-iid": "fed_ccvr",
 
 	# Global epochs
-	"global_epochs" : 10,
+	"global_epochs" : 500,
 
 	# Local epochs
 	"local_epochs" : 1,
@@ -30,7 +30,7 @@ conf = {
 	"momentum" : 0.9,
 
 	# Number of classes
-	"num_classes": 2, # era a 2
+	"num_classes": 100,
 
 	# Number of parties/nodes
 	"num_parties": 5,
