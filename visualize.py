@@ -28,7 +28,7 @@ if __name__ == '__main__':
     server = Server(conf, model, test_dataset)
 
     print('Start TSNE...')
-    # server.global_model.load_state_dict(torch.load(args.model_before_calibration))
+    server.global_model.load_state_dict(torch.load(args.model_before_calibration))
     # Get feature vectors, true labels, and labels before calibration for the test dataset
     tsne_features, tsne_true_labels, tsne_before_labels = server.get_feature_label()
     # Get labels after calibration
