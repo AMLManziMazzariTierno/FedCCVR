@@ -5,7 +5,12 @@ from fedavg.datasets import get_dataset
 class Client(object):
 
     def __init__(self, conf, model, train_df, val_df):
-
+        """
+        :param conf: Configuration file
+        :param model: Global model
+        :param train_df: Training data DataFrame
+        :param val_df: Validation data DataFrame
+        """
         self.conf = conf
 
         self.local_model = model
@@ -82,11 +87,16 @@ class Client(object):
         features = np.array(features)
         mean = np.mean(features, axis=0)
 
+        # Note that bias=1 is set here, which is equivalent to dividing by N in formula (2) instead of N-1,
+        # because when N=1, dividing by 0 will result in NaN.
         cov = np.cov(features.T, bias=1)
         return mean,cov
 
     def cal_distributions(self, model):
-
+        """
+        :param feature:
+        :return: Mean, covariance, and length
+    """
         for name, param in model.state_dict().items():
             self.local_model.state_dict()[name].copy_(param.clone())
 
@@ -111,12 +121,12 @@ class Client(object):
                         data = data.cuda()
 
                     output, feature = self.local_model(data)
-                    #print(feature.shape)
                     features.extend(feature.tolist())
 
                 f_mean, f_cov = self._cal_mean_cov(features)
 
             else:
+                # TODO: Determine the dimensions of mean and covariance based on the output of the last hidden layer
                 f_mean = np.zeros((256,))
                 f_cov = np.zeros((256,256))
 

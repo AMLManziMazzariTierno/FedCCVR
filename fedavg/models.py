@@ -144,7 +144,7 @@ class Resnet20(nn.Module):
       self.layer1 = self._make_layer(block, 16, num_blocks[0], stride=1)
       self.layer2 = self._make_layer(block, 32, num_blocks[1], stride=2)
       self.layer3 = self._make_layer(block, 64, num_blocks[2], stride=2)
-      self.linear = nn.Linear(64, n_classes)
+
 
       #self.apply(_weights_init)
       #self.weights = self.apply(_weights_init)
@@ -170,9 +170,10 @@ class Resnet20(nn.Module):
         out = self.layer3(out)
 
         out = F.avg_pool2d(out, out.size()[3])
+        
+        out = out.view(out.size(0), -1) # Flatten the features
 
         feature = out
-        out = out.view(out.size(0), -1)
         out = self.linear(out)
             
         return out, feature
