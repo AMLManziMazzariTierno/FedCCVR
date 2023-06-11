@@ -88,10 +88,10 @@ if __name__ == '__main__':
         # Save test accuracy to wandb
         wandb.log({"Test Accuracy": acc})
 
-        # # Save the best model
-        # if acc >= max_acc:
-        #     torch.save(server.global_model.state_dict(), os.path.join(conf["model_dir"], "model-epoch{}.pth".format(e)))
-        #     max_acc = acc
+        # Save the best model
+        if acc >= max_acc:
+            torch.save(server.global_model.state_dict(), os.path.join(conf["model_dir"], "model-epoch{}.pth".format(e)))
+            max_acc = acc
 
     # Virtual Representation Generation ####################################################
     if conf['no-iid'] == 'fed_ccvr':
