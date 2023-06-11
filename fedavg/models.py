@@ -203,7 +203,7 @@ class ReTrainModel(nn.Module):
 
     def forward(self, input):
 
-        return self.fc(input)
+        return self.linear(input)
 
 def weights_init_normal(m):
     classname = m.__class__.__name__
