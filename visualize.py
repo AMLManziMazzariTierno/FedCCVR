@@ -4,7 +4,7 @@ import torch
 from conf import conf
 from fedavg.server import Server
 from fedavg.client import Client
-from fedavg.models import CNN_Model, resnet20
+from fedavg.models import resnet20
 from utils import get_data, FedTSNE
 
 
