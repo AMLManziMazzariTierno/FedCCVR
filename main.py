@@ -44,13 +44,7 @@ if __name__ == '__main__':
     # Save node models
     clients_models = {}
 
-    if conf['model_name'] == "mlp":
-        n_input = test_dataset.shape[1] - 1
-        model = MLP(n_input, 512, conf["num_classes"])
-    elif conf['model_name'] == 'cnn':
-        ## Target model for training
-        model = CNN_Model()
-    elif conf['model_name'] == 'resnet20':
+    if conf['model_name'] == 'resnet20':
         model = resnet20(100)
 
     if torch.cuda.is_available():

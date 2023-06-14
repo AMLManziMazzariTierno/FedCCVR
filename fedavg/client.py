@@ -127,8 +127,8 @@ class Client(object):
 
             else:
                 # TODO: Determine the dimensions of mean and covariance based on the output of the last hidden layer
-                f_mean = np.zeros((256,))
-                f_cov = np.zeros((256,256))
+                f_mean = np.zeros((64,))
+                f_cov = np.zeros((64,64))
 
             mean.append(f_mean)
             cov.append(f_cov)
