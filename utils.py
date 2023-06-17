@@ -5,6 +5,7 @@ from sklearn.utils import shuffle
 from sklearn.manifold import TSNE
 import matplotlib.pyplot as plt
 import wandb
+import colorsys
 
 def label_skew(data,label,K,n_parties,beta,min_require_size = 10):
     """

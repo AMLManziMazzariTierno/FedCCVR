@@ -61,7 +61,7 @@ conf = {
 
 	"retrain":{
 		"epoch": 10,
-		"lr": 0.001,
-		"num_vr":2000
+		"lr": 0.0001,
+		"num_vr":500
 	}
 }
