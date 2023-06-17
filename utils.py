@@ -94,27 +94,17 @@ class FedTSNE:
         """
         self.tsne = TSNE(n_components=2, learning_rate='auto', init='random', random_state=random_state)
         self.X_embedded = self.tsne.fit_transform(X)
-        self.colors = np.array([[  0,   0,   0],
-                                [128,   0,   0],
-                                [  0, 128,   0],
-                                [128, 128,   0],
-                                [  0,   0, 128],
-                                [128,   0, 128],
-                                [  0, 128, 128],
-                                [128, 128, 128],
-                                [ 64,   0,   0],
-                                [192,   0,   0],
-                                [ 64, 128,   0],
-                                [192, 128,   0],
-                                [ 64,   0, 128],
-                                [192,   0, 128],
-                                [ 64, 128, 128],
-                                [192, 128, 128],
-                                [  0,  64,   0],
-                                [128,  64,   0],
-                                [  0, 192,   0],
-                                [128, 192,   0],
-                                [  0,  64, 128]]) / 255.
+        self.colors = self.generate_colors(conf["num_classes"])
+        
+    def generate_colors(self, num_colors):
+        colors = []
+        for i in range(num_colors):
+            hue = i / num_colors  # Vary the hue component from 0 to 1
+            saturation = 0.8  # Adjust the saturation component (0 to 1)
+            value = 0.9  # Adjust the value component (0 to 1)
+            rgb = colorsys.hsv_to_rgb(hue, saturation, value)
+            colors.append(rgb)
+        return np.array(colors)
 
     def visualize(self, y, title=None, save_path='./visualize/tsne.png'):
         assert y.shape[0] == self.X_embedded.shape[0]
