@@ -33,7 +33,7 @@ conf = {
 	"num_classes": 100,
 
 	# Number of parties/nodes
-	"num_parties": 5,
+	"num_parties": 8,
 
     # Model aggregation weight initialization
 	"is_init_avg": True,
@@ -61,7 +61,7 @@ conf = {
 
 	"retrain":{
 		"epoch": 10,
-		"lr": 0.0001,
+		"lr": 0.001,
 		"num_vr":2000
 	}
 }
