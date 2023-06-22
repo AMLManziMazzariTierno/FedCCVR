@@ -25,3 +25,6 @@ Run this repo:
 
 t-Distributed Stochastic Neighbor Embedding (t-SNE) is an unsupervised, non-linear technique primarily used for data exploration and visualizing high-dimensional data. In simpler terms, t-SNE gives you a feel or intuition of how the data is arranged in a high-dimensional space.
 t-SNE differs from PCA by preserving only small pairwise distances or local similarities
+
+## Credits
+[Fed-CCVR](https://github.com/smduan/Fed-CCVR)
