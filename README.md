@@ -27,4 +27,4 @@ t-Distributed Stochastic Neighbor Embedding (t-SNE) is an unsupervised, non-line
 t-SNE differs from PCA by preserving only small pairwise distances or local similarities
 
 ## Credits
-[Fed-CCVR](https://github.com/smduan/Fed-CCVR)
+Implementation of Fed-CCVR: [Fed-CCVR](https://github.com/smduan/Fed-CCVR)
