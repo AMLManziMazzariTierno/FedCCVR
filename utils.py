@@ -110,7 +110,7 @@ class FedTSNE:
     def visualize(self, y, title=None, save_path='./visualize/tsne.png'):
         assert y.shape[0] == self.X_embedded.shape[0]
         fig, ax = plt.subplots(1, 1)
-        ax.scatter(self.X_embedded[:, 0], self.X_embedded[:, 1], c=self.colors[y], s=10)
+        ax.scatter(self.X_embedded[:, 0], self.X_embedded[:, 1], c=self.colors[y], s=2)
         ax.set_title(title)
         ax.axis('equal')
         fig.savefig(save_path)

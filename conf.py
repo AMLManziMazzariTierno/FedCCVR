@@ -3,7 +3,7 @@
 conf = {
 
 	# Data type: tabular, image
-	"data_type" : "image",
+	"data_type" : "tabular",
 
 	# Model selection: mlp, cnn, resnet20
 	"model_name" : "resnet20",
